@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuis UKMPPD THT – OMA, OME, OMSK</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6fb;--card:#fff;--tx:#1b2333;--mu:#64708a;--br:#d8deeb;--pr:#2f5597;--ok:#1e8e4e;--okb:#e4f5ea;--no:#c0392b;--nob:#fbe9e7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141f;--card:#19202f;--tx:#e8ecf5;--mu:#94a0ba;--br:#2c364c;--pr:#7ea3e6;--okb:#143324;--nob:#3a1d1a;--ok:#56c785;--no:#ef7a6c}}
+:root[data-theme="dark"]{--bg:#10141f;--card:#19202f;--tx:#e8ecf5;--mu:#94a0ba;--br:#2c364c;--pr:#7ea3e6;--okb:#143324;--nob:#3a1d1a;--ok:#56c785;--no:#ef7a6c}
+*{box-sizing:border-box}html,body{margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.w{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:1.3rem;margin:.2rem 0}
+.card{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:18px;margin-top:14px}
+.mu{color:var(--mu);font-size:.9rem}
+.bar{height:6px;background:var(--br);border-radius:9px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:var(--pr);transition:width .3s}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tag{font-size:.75rem;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--pr);color:#fff}
+.q{margin:12px 0;font-size:1.02rem}
+.o{display:flex;gap:10px;width:100%;text-align:left;background:var(--card);color:var(--tx);border:1.5px solid var(--br);border-radius:10px;padding:10px 12px;margin:8px 0;font:inherit;cursor:pointer}
+.o:hover:not(:disabled){border-color:var(--pr)}
+.o b{flex:none;width:24px;height:24px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:.8rem}
+.o.ok{background:var(--okb);border-color:var(--ok)}.o.no{background:var(--nob);border-color:var(--no)}
+.ex{margin-top:12px;padding:12px;border-radius:10px;background:var(--bg);border-left:4px solid var(--pr);font-size:.93rem}
+.btn{background:var(--pr);color:#fff;border:0;border-radius:10px;padding:11px 20px;font:inherit;font-weight:600;cursor:pointer;margin-top:14px}
+.btn.g{background:transparent;color:var(--pr);border:1.5px solid var(--pr)}
+.big{font-size:2.6rem;font-weight:800;color:var(--pr)}
+.rv{border-top:1px solid var(--br);padding:10px 0;font-size:.9rem}
+</style></head><body><div class="w" id="app"></div>
+<script>
+// Format: [level, soal, [jawaban BENAR, salah, salah, salah, salah], pembahasan]
+const D=[
+["C1","Penyebab utama otitis media akut (OMA) pada anak adalah…",["Streptococcus pneumoniae, Haemophilus influenzae, Moraxella catarrhalis","Pseudomonas aeruginosa","Staphylococcus epidermidis","Klebsiella","Proteus"],"Bakteri tersering OMA: S. pneumoniae (35%), H. influenzae (20%), M. catarrhalis (4–13%); sisanya virus saluran napas atas."],
+["C1","Kelompok usia yang paling sering mengalami OMA adalah…",["Anak, terutama tiga tahun pertama kehidupan","Remaja","Dewasa muda","Lansia","Ibu hamil"],"OMA paling sering mengenai anak terutama tiga tahun pertama kehidupan; adenoid fokus infeksi tersering."],
+["C2","Anak 2 tahun batuk pilek 3 hari, kini demam, menarik-narik telinga, rewel, muntah; otoskopi membran timpani normal namun retraksi. Stadium OMA?",["Stadium oklusi tuba Eustachius","Stadium hiperemis","Stadium supurasi","Stadium perforasi","Stadium resolusi"],"Stadium oklusi: retraksi membran timpani akibat tekanan negatif telinga tengah (absorpsi udara); membran timpani tampak normal/retraksi."],
+["C2","Anak 3 tahun demam 38,5 °C, telinga kiri nyeri, membran timpani hiperemis dengan pembuluh darah melebar dan edema, sekret serosa belum terlihat. Stadium OMA?",["Stadium hiperemis","Stadium oklusi","Stadium supurasi","Stadium perforasi","Stadium resolusi"],"Stadium hiperemis: pembuluh darah melebar, membran timpani hiperemis dan edema, sekret masih eksudat serosa."],
+["C2","Anak 4 tahun demam tinggi, nyeri telinga hebat, menangis terus, membran timpani menonjol (bulging) berwarna kuning. Stadium OMA yang SERING KELUAR di CBT ini adalah…",["Stadium supurasi","Stadium oklusi","Stadium hiperemis","Stadium resolusi","Stadium perforasi"],"Stadium supurasi: membran timpani bulging, pasien tampak sangat sakit, nyeri bertambah hebat."],
+["C3","Anak 3 tahun OMA stadium supurasi sejak 2 hari, demam tinggi dan nyeri hebat, kemudian keluar cairan nanah dari telinga dan anak menjadi tenang dengan demam turun. Stadium sekarang dan penyebabnya?",["Stadium perforasi; terlambat antibiotik atau virulensi kuman tinggi","Stadium resolusi","Stadium oklusi","OMSK","Otitis eksterna"],"Perforasi: ruptur membran timpani, nanah keluar, pasien tenang dan suhu turun, akibat terlambat antibiotik/virulensi tinggi."],
+["C3","Terapi OMA stadium supurasi dengan bulging yang tidak membaik atau nyeri hebat adalah…",["Antibiotik dan miringotomi (insisi dan drainase)","Antibiotik topikal saja","Observasi tanpa terapi","Timpanoplasti","Mastoidektomi"],"Penatalaksanaan OMA: antimikroba, insisi dan drainase (miringotomi), follow-up, terapi simtomatis (analgetik, antipiretik, dekongestan oral, antihistamin)."],
+["C1","Definisi otitis media akut rekuren adalah…",["≥5 kali dalam 1 tahun atau 3 kali dalam 6 bulan","1 kali per 2 tahun","2 kali dalam 1 minggu","10 kali per 5 tahun","Sekret >2 bulan"],"OMA rekuren: frekuensi inflamasi akut ≥5x dalam 1 tahun atau 3x dalam 6 bulan."],
+["C1","Stadium resolusi OMA bila membran timpani tetap utuh berarti…",["Membran timpani kembali normal","Terjadi OMSK","Terjadi kolesteatoma","Perlu mastoidektomi","Perforasi pasti"],"Bila MT utuh akan normal kembali; bila perforasi sekret berkurang dan kering. OMA dapat menjadi OMSK bila perforasi menetap dengan sekret."],
+["C4","Anak 5 tahun dengan OMA tidak terobati, sekret terus keluar selama >2 bulan dengan perforasi menetap. Diagnosis?",["OMSK","OMA stadium perforasi","OME","Serumen prop","Otitis eksterna"],"OMA menjadi OMSK bila proses lebih dari 2 bulan dengan perforasi dan sekret terus-menerus/hilang timbul."],
+["C3","Anak 4 tahun dengan OMA rekuren, otoskopi: membran timpani opak, tebal, retraksi, mobilitas menurun, tanpa demam atau nyeri. Diagnosis?",["Otitis media efusi (OME)","OMA stadium supurasi","OMSK","Serumen prop","Otitis eksterna"],"OME: cairan non-purulen di telinga tengah tanpa tanda inflamasi akut atau perforasi; membran timpani opak, tebal, retraksi."],
+["C1","Penyakit telinga tersering pada anak prasekolah, bilateral, dengan cairan telinga tengah tanpa tanda inflamasi akut adalah…",["Otitis media efusi","OMSK","Otitis eksterna","Mastoiditis","Kolesteatoma"],"OME penyakit telinga tersering pada anak belum sekolah, mengenai kedua telinga; dapat terjadi saat resolusi OMA."],
+["C2","Anak 5 tahun mengeluh kurang dengar dan telinga terasa penuh tanpa demam dan nyeri. Pemeriksaan penunjang yang sesuai?",["Timpanometri (timpanogram tipe B atau C)","Foto toraks","Kultur darah","CT otak","Elektrokardiografi"],"OME: diagnosis dengan otoskopi; timpanogram kurva tipe B atau tipe C; mobilitas membran timpani menurun."],
+["C2","Gambaran otoskopi OME yang benar adalah…",["Membran timpani opak, tebal, retraksi, mobilitas menurun","Membran timpani bulging dengan nanah","Perforasi sentral dengan sekret","Kolesteatoma di atik","Normal"],"Diagnosis OME otoskopik: MT opak, tebal, retraksi; warna dapat pucat, kemerahan, kekuningan, kebiruan."],
+["C3","Anak 4 tahun OME menetap 3 bulan dengan tuli konduktif dan hipertrofi adenoid. Terapi bedah yang tepat?",["Miringotomi dengan insersi pipa timpanostomi, dengan atau tanpa adenoidektomi","Mastoidektomi radikal","Timpanoplasti","Laringektomi","Observasi seumur hidup"],"OME pada mayoritas anak membaik sendiri dalam 2–3 bulan; bedah: miringotomi + pipa timpanostomi atau adenoidektomi dan miringotomi."],
+["C4","Pria 55 tahun berat badan turun, OME unilateral menetap pada dewasa, tidak ada riwayat ISPA. Hal yang harus dicurigai?",["Tumor nasofaring (KNF) yang menyumbat tuba Eustachius","Serumen prop","Otitis eksterna","Presbikusis","OMSK benigna"],"Pada dewasa dengan OME unilateral menetap harus dipikirkan sumbatan tuba oleh tumor nasofaring."],
+["C1","Definisi OMSK adalah…",["Infeksi kronis telinga tengah dengan perforasi membran timpani dan sekret terus-menerus/hilang timbul","Cairan serosa tanpa perforasi","Peradangan telinga luar","Retraksi membran timpani saja","Infeksi mastoid akut"],"OMSK: infeksi kronis telinga tengah dengan perforasi MT dan sekret keluar terus/hilang timbul, > 2 bulan."],
+["C1","Bakteri tersering penyebab OMSK adalah…",["Pseudomonas aeruginosa (40–60%)","Streptococcus pneumoniae","Haemophilus influenzae","Moraxella","Neisseria"],"Bakteriologi OMSK: Pseudomonas aeruginosa 40–60%, Staphylococcus aureus 10–20%, bakteri anaerob."],
+["C2","Faktor predisposisi OMA menjadi OMSK adalah…",["Terapi terlambat/tidak adekuat, daya tahan tubuh rendah, higiene buruk","Terapi adekuat","Imunisasi lengkap","Gizi baik","Umur muda"],"Faktor predisposisi: terapi terlambat, tidak adekuat, daya tahan rendah, higiene buruk."],
+["C2","Pasien OMSK dengan perforasi sentral, otore mukoid tidak berbau, tanpa kolesteatom. Jenisnya?",["OMSK benigna","OMSK maligna","OMA","OME","Otomikosis"],"Benigna: perforasi sentral, radang terbatas mukosa, tidak mengenai tulang, jarang komplikasi, tidak ada kolesteatom."],
+["C3","Pria 30 tahun otore berbau khas berkepanjangan, perforasi atik/marginal, tampak jaringan putih mengkilap seperti kulit bawang. Diagnosis?",["OMSK maligna dengan kolesteatoma","OMSK benigna","OME","Otitis eksterna","Serumen prop"],"Maligna: perforasi marginal/atik, polip/granulasi di MAE, sekret nanah berbau khas, ada kolesteatoma, komplikasi fatal."],
+["C3","Anak 8 tahun OMSK benigna aktif dengan sekret purulen. Terapi awal yang sesuai?",["Ear toilet H2O2, antibiotik topikal, antibiotik sistemik","Mastoidektomi langsung","Hanya observasi","Timpanoplasti saja","Insisi retroaurikuler"],"OMSK benigna aktif: ear toilet H2O2, AB topikal dan sistemik; otore menetap → ganti AB sesuai kultur; ideal mastoidektomi + timpanoplasti."],
+["C3","OMSK benigna stadium tenang, perforasi menetap dan tuli konduktif. Terapi yang tepat?",["Timpanoplasti dengan/tanpa mastoidektomi","Antibiotik oral jangka panjang","Ear toilet saja","Observasi tanpa terapi","Miringotomi"],"OMSK benigna tenang: perforasi menetap → timpanoplasti dengan/tanpa mastoidektomi."],
+["C4","Pasien OMSK maligna, terapi yang tepat adalah…",["Operasi (mastoidektomi) karena progresif dan destruktif tulang","Antibiotik topikal saja","Observasi","Antihistamin","Tetes telinga steroid"],"OMSK maligna bersifat progresif; kolesteatom semakin luas mendestruksi tulang dan dapat sepsis; terapi operasi."],
+["C4","Pasien OMSK maligna dengan nyeri kepala hebat, demam tinggi, kaku kuduk. Komplikasi yang dicurigai?",["Meningitis (komplikasi intrakranial)","Mastoiditis ringan","Serumen prop","Otitis eksterna","OME"],"Komplikasi intrakranial OMSK: tromboflebitis sinus sigmoideus, meningitis, abses subdural/epidural/otak, hidrosefalus otitis."],
+["C4","Pria 35 tahun otore kronik, tiba-tiba mulut mencong sisi kiri dan vertigo. Diagnosis komplikasi?",["Paralisis n. fasialis dan labirinitis (komplikasi intratemporal)","Meningitis","Abses otak","Hidrosefalus","OME"],"Komplikasi intratemporal: mastoiditis, petrositis, labirinitis, abses retroaurikuler, paralisis n. fasialis, abses Bezold."],
+["C4","Pasien OMSK dengan otore menetap walaupun terapi adekuat dan higiene baik, disertai vertigo. Kecurigaan?",["OMSK maligna","OMSK benigna","OMA","OME","Otitis eksterna"],"Suspek OMSK maligna: otore tetap walau terapi adekuat dan higiene baik, atau ada keluhan komplikasi (vertigo)."],
+["C3","Pasien dengan benjolan di belakang telinga hingga leher, demam, riwayat otore kronik; pus menyebar ke SCM. Diagnosis?",["Abses Bezold (komplikasi intratemporal OMSK)","Abses peritonsil","Limfadenitis TB","Parotitis","Kista brankialis"],"Abses Bezold termasuk komplikasi intratemporal OMSK/mastoiditis."],
+["C2","Pasien dewasa mengeluh telinga tersumbat dan kurang dengar mendadak setelah berenang; otoskopi liang telinga tertutup massa coklat keras, membran timpani tidak terlihat. Diagnosis?",["Serumen prop","OMSK","OMA","OME","Perforasi traumatik"],"Serumen prop: akumulasi serumen mengeras yang menyumbat liang telinga, tuli konduktif dan rasa tersumbat; DD gangguan telinga yang tersumbat."],
+["C4","Anak 6 tahun OMA berulang 6 kali setahun, kini OME persisten 4 bulan dengan tuli konduktif 30 dB dan hipertrofi adenoid. Tatalaksana yang paling tepat setelah terapi non-bedah gagal?",["Adenoidektomi dan miringotomi dengan atau tanpa pipa timpanostomi","Mastoidektomi radikal","Timpanoplasti tipe IV","Antibiotik jangka panjang saja","Observasi hingga dewasa"],"OME persisten dengan OMA rekuren: bedah berupa miringotomi + pipa timpanostomi atau adenoidektomi dan miringotomi dengan/tanpa pipa; adenoid fokus infeksi tersering."]
+];
+const $=id=>document.getElementById(id),app=$('app');
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let Q,i,score,log;
+function start(){Q=sh(D).map(d=>{const o=sh(d[2].map((t,k)=>({t,c:k===0})));return{l:d[0],q:d[1],o,e:d[3]}});i=0;score=0;log=[];show();scrollTo(0,0)}
+function intro(){app.innerHTML=`<h1>Kuis Kasus UKMPPD – OMA, OME, OMSK</h1><p class="mu">Otitis Media Akut, Otitis Media Efusi, Otitis Media Supuratif Kronik.</p><div class="card"><p>30 soal kasus klinis (15 soal C1–C2 dan 15 soal C3–C4), 5 pilihan (A–E). Urutan soal dan pilihan diacak setiap kali kuis dimulai.</p><button class="btn" id="go">Mulai Kuis</button></div>`;$('go').onclick=start}
+function show(){if(i>=Q.length)return end();const q=Q[i];
+app.innerHTML=`<div class="top"><h1>Kuis THT</h1><span class="mu">Soal ${i+1}/${Q.length} · Skor ${score}</span></div><div class="bar"><i style="width:${i/Q.length*100}%"></i></div>
+<div class="card"><span class="tag">${q.l}</span><p class="q">${q.q}</p><div id="os">${q.o.map((o,k)=>`<button class="o" data-k="${k}"><b>${'ABCDE'[k]}</b><span>${o.t}</span></button>`).join('')}</div><div id="fb"></div></div>`;
+document.querySelectorAll('.o').forEach(b=>b.onclick=()=>pick(+b.dataset.k))}
+function pick(k){const q=Q[i],ok=q.o[k].c;if(ok)score++;log.push({q,ok,k});
+document.querySelectorAll('.o').forEach((b,n)=>{b.disabled=true;if(q.o[n].c)b.classList.add('ok');else if(n===k)b.classList.add('no')});
+$('fb').innerHTML=`<div class="ex"><b>${ok?'Benar ✓':'Salah ✗'}</b> — ${q.e}</div><button class="btn" id="nx">${i===Q.length-1?'Lihat Hasil':'Soal Berikutnya'}</button>`;
+$('nx').onclick=()=>{i++;show();scrollTo(0,0)}}
+function end(){const lv=l=>{const a=log.filter(x=>l.includes(x.q.l));return a.filter(x=>x.ok).length+'/'+a.length};
+const wr=log.filter(x=>!x.ok);
+app.innerHTML=`<h1>Hasil Kuis</h1><div class="card"><div class="big">${Math.round(score/Q.length*100)}%</div><p>Benar ${score} dari ${Q.length} soal.</p><p class="mu">C1–C2: ${lv(['C1','C2'])} · C3–C4: ${lv(['C3','C4'])}</p><button class="btn" id="rs">Ulangi (soal diacak ulang)</button></div>
+<div class="card"><b>Pembahasan soal yang salah (${wr.length})</b>${wr.length?wr.map(x=>`<div class="rv"><span class="tag">${x.q.l}</span> ${x.q.q}<br><span style="color:var(--no)">Jawabanmu: ${x.q.o[x.k].t}</span><br><span style="color:var(--ok)">Benar: ${x.q.o.find(o=>o.c).t}</span><br><span class="mu">${x.q.e}</span></div>`).join(''):'<p>Semua jawaban benar. Luar biasa!</p>'}</div>`;
+$('rs').onclick=start;scrollTo(0,0)}
+intro();
+</script></body></html>
